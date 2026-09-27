@@ -10,7 +10,7 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="h-full flex overflow-hidden antialiased selection:bg-emerald-600 selection:text-white">
+<body class="min-h-full flex overflow-x-hidden antialiased selection:bg-emerald-600 selection:text-white">
 
     <!-- Mobile Backdrop Overlay -->
     <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/50 z-40 hidden md:hidden transition-opacity"></div>
@@ -74,10 +74,10 @@
     </aside>
 
     <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50">
+    <div class="flex-1 flex flex-col min-h-screen overflow-y-auto bg-slate-50">
         
         <!-- Top Header -->
-        <header class="bg-white border-b border-slate-200/80 h-20 px-6 md:px-10 flex items-center justify-between shadow-xs shrink-0">
+        <header class="bg-white border-b border-slate-200/80 h-20 px-6 md:px-10 flex items-center justify-between shadow-xs shrink-0 sticky top-0 z-30">
             <div class="flex items-center space-x-4">
                 <!-- Mobile Hamburger Toggle -->
                 <button id="sidebar-toggle" class="md:hidden text-slate-600 hover:text-slate-900 focus:outline-none p-2 rounded-xl bg-slate-100">
@@ -102,7 +102,7 @@
         </header>
 
         <!-- Dynamic Content Body -->
-        <main class="flex-1 p-6 md:p-10 overflow-y-auto">
+        <main class="flex-1 p-6 md:p-10">
             <div class="max-w-7xl mx-auto">
                 @yield('content')
             </div>
