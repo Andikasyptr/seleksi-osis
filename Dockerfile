@@ -32,13 +32,16 @@ WORKDIR /var/www/html
 # 7. Salin file composer terlebih dahulu agar cache optimal
 COPY composer.json composer.lock ./
 
-# 8. Install vendor dependencies
-RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+# 8. Install vendor dependencies TANPA menjalankan scripts otomatis
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts
 
-# 9. Salin seluruh sisa file project ke dalam container
+# 9. Salin seluruh sisa file project ke dalam container (termasuk folder app, artisan, dll)
 COPY . /var/www/html
 
-# 10. Set hak akses (permissions) yang aman untuk folder storage & cache Laravel
+# 10. Jalankan package discovery secara manual sekarang setelah file lengkap
+RUN COMPOSER_ALLOW_SUPERUSER=1 php artisan package:discover --ansi || true
+
+# 11. Set hak akses (permissions) yang aman untuk folder storage & cache Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
