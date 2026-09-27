@@ -18,7 +18,7 @@ RUN docker-php-ext-install pdo_mysql gd zip bcmath
 # Aktifkan Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Salin vhost langsung dari folder .docker/vhost.conf
+# Salin custom vhost Apache
 COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Salin Composer dari image resmi
@@ -27,10 +27,20 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Tentukan working directory
 WORKDIR /var/www/html
 
-# Salin file project
+# Salin file composer terlebih dahulu agar cache dependencies optimal
+COPY composer.json composer.lock ./
+
+# Install vendor dependencies (tanpa package dev untuk produksi)
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Salin seluruh sisa file project ke dalam container
 COPY . /var/www/html
 
-# Beri hak akses storage & bootstrap cache
+# Jalankan script composer post-install jika ada
+RUN composer run-script post-autoload-dump || true
+
+# Beri hak akses (permission) penuh ke folder storage dan bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
