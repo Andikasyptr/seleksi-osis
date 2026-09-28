@@ -204,10 +204,11 @@
             
             if (show) {
                 panel.classList.remove('hidden');
-                panel.classList.add('fixed', 'inset-x-4', 'bottom-4', 'top-auto', 'z-50', 'max-h-[85vh]', 'overflow-y-auto');
+                // Panel navigasi muncul di bagian atas (di bawah header) pada mobile
+                panel.classList.add('fixed', 'inset-x-4', 'top-24', 'z-50', 'max-h-[75vh]', 'overflow-y-auto', 'shadow-2xl');
                 backdrop.classList.remove('hidden');
             } else {
-                panel.classList.remove('fixed', 'inset-x-4', 'bottom-4', 'top-auto', 'z-50', 'max-h-[85vh]', 'overflow-y-auto');
+                panel.classList.remove('fixed', 'inset-x-4', 'top-24', 'z-50', 'max-h-[75vh]', 'overflow-y-auto', 'shadow-2xl');
                 if (window.innerWidth < 1024) {
                     panel.classList.add('hidden');
                 }
