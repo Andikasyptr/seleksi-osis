@@ -69,7 +69,7 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
                 <div>
-                    <h1 class="text-lg md:text-xl font-extrabold text-slate-900 tracking-tight">@yield('title', 'Dashboard Siswa')</h1>
+                    <h1 class="text-lg md:text-xl font-extrabold text-slate-900 tracking-tight">@yield('header-title', 'Dashboard Siswa')</h1>
                     <p class="text-xs font-medium text-slate-500 hidden sm:block">Sistem Computer Assisted Test (CAT) Seleksi Anggota OSIS</p>
                 </div>
             </div>
